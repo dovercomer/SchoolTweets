@@ -3,7 +3,7 @@ package com.techhaven.schooltweets.dataobjects;
 /**
  * Created by Oluwayomi on 2/9/2016.
  */
-public class NewsObject {
+public class NewsBlogObject {
     private int id;
     private String Title;
     private String PostText;
