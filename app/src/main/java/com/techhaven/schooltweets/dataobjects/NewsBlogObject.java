@@ -12,6 +12,7 @@ public class NewsBlogObject {
     private String UpVoteCount;
     private String DownVoteCount;
     private String ImagePost;
+    private int CommentCount;
 
     public int getId() {
         return id;
@@ -75,5 +76,13 @@ public class NewsBlogObject {
 
     public void setImagePost(String imagePost) {
         ImagePost = imagePost;
+    }
+
+    public int getCommentCount() {
+        return CommentCount;
+    }
+
+    public void setCommentCount(int commentCount) {
+        CommentCount = commentCount;
     }
 }

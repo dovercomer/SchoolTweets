@@ -1,7 +1,6 @@
 package com.techhaven.schooltweets.fragment;
 
 
-
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -14,7 +13,6 @@ import com.techhaven.schooltweets.R;
  * A simple {@link Fragment} subclass.
  * Use the {@link PostFragment#newInstance} factory method to
  * create an instance of this fragment.
- *
  */
 public class PostFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
@@ -26,6 +24,10 @@ public class PostFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
+
+    public PostFragment() {
+        // Required empty public constructor
+    }
 
     /**
      * Use this factory method to create a new instance of
@@ -43,9 +45,6 @@ public class PostFragment extends Fragment {
         args.putString(ARG_PARAM2, param2);
         fragment.setArguments(args);
         return fragment;
-    }
-    public PostFragment() {
-        // Required empty public constructor
     }
 
     @Override

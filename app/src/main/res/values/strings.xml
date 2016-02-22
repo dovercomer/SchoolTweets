@@ -1,3 +1,30 @@
 <resources>
-    <string name="app_name">SchoolTweets</string>
+    <string name="app_name" translatable="false">Schooltweets</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="Dont_have_an_account">Don’t have an account?</string>
+    <string name="log_in_with_facebook">Log in with Facebook</string>
+    <string name="log_in_with_twitter">Log in with Twitter</string>
+    <string name="log_in_with_google">Log in with Google</string>
+    <string name="log_in">Log in</string>
+    <string name="skip_log_in">Skip Log in</string>
+    <string name="sign_up">Sign up.</string>
+    <string name="title_activity_text_nav">TextNavActivity</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_test_tab">TestTabActivity</string>
+    <string name="section_format">Hello World from section: %1$d</string>
+    <string name="nav_news">News Blog</string>
+    <string name="nav_forum">Forum</string>
+    <string name="nav_content_reception">Write for us</string>
+    <string name="nav_feedback">Feedback</string>
+    <string name="nav_about_app">About</string>
+    <string name="nav_settings">Settings</string>
+    <string name="app_exit_on_back_button_text">Press back button again to exit.</string>
+    <string name="action_title_news">News</string>
+    <string name="action_title_forum">Forum</string>
 </resources>

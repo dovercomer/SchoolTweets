@@ -1,7 +1,9 @@
 package com.techhaven.schooltweets.activity;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+
+import com.techhaven.schooltweets.R;
 
 public class SigninActivity extends AppCompatActivity {
 

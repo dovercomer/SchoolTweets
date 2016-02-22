@@ -3,6 +3,7 @@ package com.techhaven.schooltweets;
 import android.app.Application;
 import android.content.Context;
 
+
 /**
  * Created by Oluwayomi on 2/10/2016.
  */
@@ -13,6 +14,7 @@ public class MyApplication extends Application {
         super.onCreate();
         sInstance=this;
     }
+
     public static MyApplication getInstance(){
         return sInstance;
     }

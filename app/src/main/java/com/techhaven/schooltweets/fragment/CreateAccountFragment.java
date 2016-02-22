@@ -1,12 +1,12 @@
 package com.techhaven.schooltweets.fragment;
 
 
-
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.techhaven.schooltweets.R;
 
@@ -14,7 +14,6 @@ import com.techhaven.schooltweets.R;
  * A simple {@link Fragment} subclass.
  * Use the {@link CreateAccountFragment#newInstance} factory method to
  * create an instance of this fragment.
- *
  */
 public class CreateAccountFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
@@ -26,6 +25,11 @@ public class CreateAccountFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
+    TextView txtBack;
+
+    public CreateAccountFragment() {
+        // Required empty public constructor
+    }
 
     /**
      * Use this factory method to create a new instance of
@@ -44,9 +48,6 @@ public class CreateAccountFragment extends Fragment {
         fragment.setArguments(args);
         return fragment;
     }
-    public CreateAccountFragment() {
-        // Required empty public constructor
-    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -61,7 +62,14 @@ public class CreateAccountFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_create_account, container, false);
-    }
+        View view = inflater.inflate(R.layout.fragment_create_account, container, false);
+        txtBack = (TextView) view.findViewById(R.id.backButton);
+        txtBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
+            }
+        });
+        return view;
+    }
 }

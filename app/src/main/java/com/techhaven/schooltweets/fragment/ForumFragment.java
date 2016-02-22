@@ -1,12 +1,13 @@
 package com.techhaven.schooltweets.fragment;
 
-import android.content.Context;
+import android.app.Activity;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.techhaven.schooltweets.R;
 
@@ -17,7 +18,6 @@ import com.techhaven.schooltweets.R;
  * to handle interaction events.
  * Use the {@link ForumFragment#newInstance} factory method to
  * create an instance of this fragment.
- *
  */
 public class ForumFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
@@ -30,6 +30,10 @@ public class ForumFragment extends Fragment {
     private String mParam2;
 
     private OnFragmentInteractionListener mListener;
+
+    public ForumFragment() {
+        // Required empty public constructor
+    }
 
     /**
      * Use this factory method to create a new instance of
@@ -48,9 +52,6 @@ public class ForumFragment extends Fragment {
         fragment.setArguments(args);
         return fragment;
     }
-    public ForumFragment() {
-        // Required empty public constructor
-    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -65,7 +66,10 @@ public class ForumFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_forum, container, false);
+        View view = inflater.inflate(R.layout.fragment_forum, container, false);
+        TextView txtHello = (TextView) view.findViewById(R.id.txtHello);
+        txtHello.setText(mParam1 != null ? mParam1 : "Null");
+        return view;
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -76,7 +80,7 @@ public class ForumFragment extends Fragment {
     }
 
     @Override
-    public void onAttach(Context context) {
+    public void onAttach(Activity context) {
         super.onAttach(context);
         if (context instanceof OnFragmentInteractionListener) {
             mListener = (OnFragmentInteractionListener) context;
@@ -97,7 +101,7 @@ public class ForumFragment extends Fragment {
      * fragment to allow an interaction in this fragment to be communicated
      * to the activity and potentially other fragments contained in that
      * activity.
-     * <p>
+     * <p/>
      * See the Android Training lesson <a href=
      * "http://developer.android.com/training/basics/fragments/communicating.html"
      * >Communicating with Other Fragments</a> for more information.
