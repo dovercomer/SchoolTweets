@@ -325,7 +325,7 @@ public class DataContract {
         }
 
         public static String getGroupFromUri(Uri uri) {
-            return uri.getPathSegments().get(1);
+            return uri.getPathSegments().get(2);
         }
 
     }
@@ -380,7 +380,7 @@ public class DataContract {
         }
 
         public static String getCourseFromUri(Uri uri) {
-            return uri.getPathSegments().get(1);
+            return uri.getPathSegments().get(2);
         }
     }
 
@@ -402,7 +402,7 @@ public class DataContract {
         }
 
         public static String getTopicFromUri(Uri uri) {
-            return uri.getPathSegments().get(1);
+            return uri.getPathSegments().get(2);
         }
 
     }
@@ -434,7 +434,7 @@ public class DataContract {
         }
 
         public static String getCourseFromUri(Uri uri) {
-            return uri.getPathSegments().get(1);
+            return uri.getPathSegments().get(2);
         }
     }
 
@@ -459,7 +459,7 @@ public class DataContract {
         }
 
         public static String getDiscussionFromUri(Uri uri) {
-            return uri.getPathSegments().get(1);
+            return uri.getPathSegments().get(2);
         }
 
     }
@@ -486,11 +486,11 @@ public class DataContract {
         }
 
         public static String getCourseFromUri(Uri uri) {
-            return uri.getPathSegments().get(1);
+            return uri.getPathSegments().get(2);
         }
 
         public static String getTopicFromUri(Uri uri) {
-            return uri.getPathSegments().get(1);
+            return uri.getPathSegments().get(4);
         }
 
 

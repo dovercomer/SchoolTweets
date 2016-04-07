@@ -62,6 +62,11 @@ public class DataProvider extends ContentProvider {
     private static final int SUBTOPIC_ID = 1601;
     private static final int SUBTOPIC_WITH_TOPIC = 1602;
 
+    public static final String URL_COURSE = "course";
+    public static final String URL_TOPIC = "topic";
+    public static final String URL_DISCUSSION = "discussion";
+    public static final String URL_STUDY_GROUP = "group";
+
 
     private static final SQLiteQueryBuilder sDiscussionByStudyGroupQueryBuilder;
 
@@ -215,13 +220,13 @@ public class DataProvider extends ContentProvider {
                     "." + DataContract.ForumRoomEntry.COLUMN_ROOM_NAME + " = ? ";
     private static final String sGroupSelection =
             DataContract.StudyGroupEntry.TABLE_NAME +
-                    "." + DataContract.StudyGroupEntry.COLUMN_TITLE + " = ? ";
+                    "." + DataContract.StudyGroupEntry._ID + " = ? ";
     private static final String sCourseSelection =
             DataContract.CourseEntry.TABLE_NAME +
-                    "." + DataContract.CourseEntry.COLUMN_TITLE + " = ? ";
+                    "." + DataContract.CourseEntry._ID + " = ? ";
     private static final String sTopicSelection =
             DataContract.TopicEntry.TABLE_NAME +
-                    "." + DataContract.TopicEntry.COLUMN_TOPIC + " = ? ";
+                    "." + DataContract.TopicEntry._ID + " = ? ";
     private static final String sDiscussionSelection =
             DataContract.CourseDiscussionEntry.TABLE_NAME +
                     "." + DataContract.CourseDiscussionEntry._ID + " = ? ";
@@ -468,31 +473,31 @@ public class DataProvider extends ContentProvider {
 
         matcher.addURI(authority, DataContract.PATH_STUDY_GROUP_DISCUSSION, STUDY_GROUP_DISCUSSION);
         matcher.addURI(authority, DataContract.PATH_STUDY_GROUP_DISCUSSION + "/#", STUDY_GROUP_DISCUSSION_ID);
-        matcher.addURI(authority, DataContract.PATH_STUDY_GROUP_DISCUSSION + "/*", DISCUSSION_WITH_GROUP);
+        matcher.addURI(authority, DataContract.PATH_STUDY_GROUP_DISCUSSION +"/"+ URL_STUDY_GROUP + "/#", DISCUSSION_WITH_GROUP);
 
         matcher.addURI(authority, DataContract.PATH_STUDY_MATERIAL, STUDY_MATERIAL);
         matcher.addURI(authority, DataContract.PATH_STUDY_MATERIAL + "/#", STUDY_MATERIAL_ID);
-        matcher.addURI(authority, DataContract.PATH_STUDY_MATERIAL + "/*", STUDY_MATERIAL_WITH_COURSE);
-        matcher.addURI(authority, DataContract.PATH_STUDY_MATERIAL + "/*/*", STUDY_MATERIAL_WITH_TOPIC);
+        matcher.addURI(authority, DataContract.PATH_STUDY_MATERIAL +"/"+URL_COURSE+ "/#", STUDY_MATERIAL_WITH_COURSE);
+        matcher.addURI(authority, DataContract.PATH_STUDY_MATERIAL +"/"+URL_COURSE+ "/#"+ "/"+URL_TOPIC+"/#", STUDY_MATERIAL_WITH_TOPIC);
 
         matcher.addURI(authority, DataContract.PATH_COURSE, COURSE);
         matcher.addURI(authority, DataContract.PATH_COURSE + "/#", COURSE_ID);
 
         matcher.addURI(authority, DataContract.PATH_COURSE_DISCUSSION, COURSE_DISCUSSION);
         matcher.addURI(authority, DataContract.PATH_COURSE_DISCUSSION + "/#", COURSE_DISCUSSION_ID);
-        matcher.addURI(authority, DataContract.PATH_COURSE_DISCUSSION + "/*", COURSE_DISCUSSION_WITH_COURSE);
+        matcher.addURI(authority, DataContract.PATH_COURSE_DISCUSSION +"/"+URL_COURSE+ "/#", COURSE_DISCUSSION_WITH_COURSE);
 
         matcher.addURI(authority, DataContract.PATH_DISCUSSION_COMMENT, DISCUSSION_COMMENT);
         matcher.addURI(authority, DataContract.PATH_DISCUSSION_COMMENT + "/#", DISCUSSION_COMMENT_ID);
-        matcher.addURI(authority, DataContract.PATH_DISCUSSION_COMMENT + "/*", COMMENT_WITH_DISCUSSION);
+        matcher.addURI(authority, DataContract.PATH_DISCUSSION_COMMENT +"/"+URL_DISCUSSION+ "/#", COMMENT_WITH_DISCUSSION);
 
         matcher.addURI(authority, DataContract.PATH_TOPIC, TOPIC);
         matcher.addURI(authority, DataContract.PATH_TOPIC + "/#", TOPIC_ID);
-        matcher.addURI(authority, DataContract.PATH_TOPIC + "/*", TOPIC_WITH_COURSE);
+        matcher.addURI(authority, DataContract.PATH_TOPIC +"/"+URL_COURSE+ "/#", TOPIC_WITH_COURSE);
 
         matcher.addURI(authority, DataContract.PATH_SUBTOPIC, SUBTOPIC);
         matcher.addURI(authority, DataContract.PATH_SUBTOPIC + "/#", SUBTOPIC_ID);
-        matcher.addURI(authority, DataContract.PATH_SUBTOPIC + "/*", SUBTOPIC_WITH_TOPIC);
+        matcher.addURI(authority, DataContract.PATH_SUBTOPIC +"/"+URL_TOPIC+ "/#", SUBTOPIC_WITH_TOPIC);
 
         return matcher;
     }
