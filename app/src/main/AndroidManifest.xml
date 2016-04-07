@@ -24,6 +24,8 @@
         <provider
             android:authorities="com.techhaven.schooltweets"
             android:name=".dataaccesslayer.provider.DataProvider" />
+        <service android:name=".networks.SchooltweetsService" />
+        <receiver android:name=".networks.SchooltweetsService$AlarmReceiver" />
     </application>
 
 </manifest>

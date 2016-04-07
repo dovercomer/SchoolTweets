@@ -65,7 +65,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center"
-                        android:hint="Username"
+                        android:hint="@string/username"
                         android:inputType="textPersonName" />
 
                     <EditText
@@ -74,7 +74,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center"
-                        android:hint="Email"
+                        android:hint="@string/email"
                         android:inputType="textEmailAddress" />
 
                     <EditText
@@ -83,7 +83,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center"
-                        android:hint="Password"
+                        android:hint="@string/password"
                         android:inputType="textPassword" />
 
                     <EditText
@@ -92,16 +92,17 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center"
-                        android:hint="Repeat Password"
+                        android:hint="@string/repeat_password"
                         android:inputType="textPassword" />
 
                     <Button
+                        android:id="@+id/btnSignUp"
                         style="@style/Base.Widget.AppCompat.Button"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="20dp"
                         android:background="@drawable/btn_transparent_white"
-                        android:text="Sign up" />
+                        android:text="@string/btn_sign_up" />
 
                 </LinearLayout>
                 <!--<LinearLayout

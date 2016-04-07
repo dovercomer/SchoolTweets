@@ -9,6 +9,8 @@ import android.view.ViewGroup;
 
 import com.techhaven.schooltweets.R;
 
+import java.util.Date;
+
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link PostFragment#newInstance} factory method to
@@ -23,10 +25,10 @@ public class PostFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
-
+    private Date now;
 
     public PostFragment() {
-        // Required empty public constructor
+        now = new Date();
     }
 
     /**

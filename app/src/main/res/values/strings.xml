@@ -27,4 +27,9 @@
     <string name="app_exit_on_back_button_text">Press back button again to exit.</string>
     <string name="action_title_news">News</string>
     <string name="action_title_forum">Forum</string>
+    <string name="btn_sign_up">Sign up</string>
+    <string name="repeat_password">Repeat Password</string>
+    <string name="password">Password</string>
+    <string name="email">Email</string>
+    <string name="username">Username</string>
 </resources>

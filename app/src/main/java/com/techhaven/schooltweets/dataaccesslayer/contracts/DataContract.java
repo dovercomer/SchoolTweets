@@ -34,10 +34,19 @@ public class DataContract {
     public static final String PATH_FORUM_ROOM_POST = "room_post";
     public static final String PATH_CONTENT_RECEPTION = "content_reception";
     public static final String PATH_USER_PROFILE = "user_profile";
+    public static final String PATH_STUDY_GROUP = "study_group";
+    public static final String PATH_STUDY_GROUP_DISCUSSION = "study_group_discussion";
+    public static final String PATH_STUDY_MATERIAL = "study_material";
+    public static final String PATH_COURSE = "course";
+    public static final String PATH_COURSE_DISCUSSION = "course_discussion";
+    public static final String PATH_DISCUSSION_COMMENT = "discussion_comment";
+    public static final String PATH_TOPIC = "topic";
+    public static final String PATH_SUBTOPIC = "subtopic";
 
     // Format used for storing dates in the database.  ALso used for converting those strings
     // back into date objects for comparison/processing.
-    public static final String DATE_FORMAT = "yyyyMMdd";
+    //public static final String DATE_FORMAT = "yyyyMMdd";
+    public static final String DATE_FORMAT = "yyyyMMddHHmmss";
 
     /**
      * Converts Date class to a string representation, used for easy comparison and database lookup.
@@ -255,4 +264,236 @@ public class DataContract {
             return ContentUris.withAppendedId(CONTENT_URI, id);
         }
     }
+
+    public static final class InstitutionEntry implements BaseColumns {
+        public static final String TABLE_NAME = "institution";
+        public static final String COLUMN_NAME = "name";
+        public static final String COLUMN_NAME_ABBR = "name_abbreviation";
+        public static final String COLUMN_INSTITUTION_TYPE = "institution_type";
+        public static final String COLUMN_COUNTRY = "country";
+        public static final String COLUMN_STATE = "state";
+        public static final String COLUMN_CITY = "city";
+        public static final String COLUMN_SUMMARY = "summary";
+        public static final String COLUMN_BANNER = "banner";
+
+
+    }
+
+
+    public static final class StudyGroupEntry implements BaseColumns {
+        public static final Uri CONTENT_URI =
+                BASE_CONTENT_URI.buildUpon().appendPath(PATH_STUDY_GROUP).build();
+
+        public static final String CONTENT_TYPE =
+                "vnd.android.cursor.dir/" + CONTENT_AUTHORITY + "/" + PATH_STUDY_GROUP;
+        public static final String CONTENT_ITEM_TYPE =
+                "vnd.android.cursor.item/" + CONTENT_AUTHORITY + "/" + PATH_STUDY_GROUP;
+
+        public static final String TABLE_NAME = "studygroup";
+        public static final String COLUMN_TITLE = "title";
+        public static final String COLUMN_IMAGE_PATH = "image_path";
+        public static final String COLUMN_JOINED = "joined";
+
+        public static Uri buildStudyGroupUri(long id) {
+            return ContentUris.withAppendedId(CONTENT_URI, id);
+        }
+    }
+
+    public static final class StudyGroupDiscussionEntry implements BaseColumns {
+        public static final Uri CONTENT_URI =
+                BASE_CONTENT_URI.buildUpon().appendPath(PATH_STUDY_GROUP_DISCUSSION).build();
+
+        public static final String CONTENT_TYPE =
+                "vnd.android.cursor.dir/" + CONTENT_AUTHORITY + "/" + PATH_STUDY_GROUP_DISCUSSION;
+        public static final String CONTENT_ITEM_TYPE =
+                "vnd.android.cursor.item/" + CONTENT_AUTHORITY + "/" + PATH_STUDY_GROUP_DISCUSSION;
+        public static final String TABLE_NAME = "study_group_discussion";
+        public static final String COLUMN_STUDY_GROUP_ID = "study_group_id";
+        public static final String COLUMN_SENDER_ID = "sender_id";
+        public static final String COLUMN_SENDER_NAME = "sender_name";
+        public static final String COLUMN_MESSAGE = "message";
+        public static final String COLUMN_TIME = "time";
+        public static final String COLUMN_FILE_OFFLINE = "file_offline";
+        public static final String COLUMN_FILE_PATH = "file_path";
+        public static final String COLUMN_FILE_TYPE = "file_type";
+        public static final String COLUMN_READ = "read";
+        public static final String COLUMN_LIKES = "likes";
+        public static final String COLUMN_LIKED = "liked";
+
+        public static Uri buildStudyGroupDiscussionUri(long id) {
+            return ContentUris.withAppendedId(CONTENT_URI, id);
+        }
+
+        public static String getGroupFromUri(Uri uri) {
+            return uri.getPathSegments().get(1);
+        }
+
+    }
+
+
+    public static final class CourseEntry implements BaseColumns {
+        public static final Uri CONTENT_URI =
+                BASE_CONTENT_URI.buildUpon().appendPath(PATH_COURSE).build();
+
+        public static final String CONTENT_TYPE =
+                "vnd.android.cursor.dir/" + CONTENT_AUTHORITY + "/" + PATH_COURSE;
+        public static final String CONTENT_ITEM_TYPE =
+                "vnd.android.cursor.item/" + CONTENT_AUTHORITY + "/" + PATH_COURSE;
+        public static final String TABLE_NAME = "course";
+        public static final String COLUMN_TITLE = "title";
+        public static final String COLUMN_CODE = "code";
+        public static final String COLUMN_IMAGE = "image";
+        public static final String COLUMN_INSTITUTION_ID = "institution_id";
+        public static final String COLUMN_INSTITUTION_NAME = "institution";
+        public static final String COLUMN_DEPARTMENT_ID = "department_id";
+        public static final String COLUMN_DEPARTMENT_NAME = "department";
+        public static final String COLUMN_LEVEL_ID = "level_id";
+        public static final String COLUMN_LEVEL = "level";
+        public static final String COLUMN_SESSION_ID = "session_id";
+        public static final String COLUMN_SESSION_NAME = "session_name";
+        public static final String COLUMN_SEMESTER_ID = "semester_id";
+        public static final String COLUMN_SEMESTER_NAME = "semester_name";
+        public static final String COLUMN_START_DATE = "start_date";
+        public static final String COLUMN_END_DATE = "end_date";
+        public static final String COLUMN_SUMMARY = "summary";
+
+        public static Uri buildCourseUri(long id) {
+            return ContentUris.withAppendedId(CONTENT_URI, id);
+        }
+    }
+
+    public static final class TopicEntry implements BaseColumns {
+        public static final Uri CONTENT_URI =
+                BASE_CONTENT_URI.buildUpon().appendPath(PATH_TOPIC).build();
+
+        public static final String CONTENT_TYPE =
+                "vnd.android.cursor.dir/" + CONTENT_AUTHORITY + "/" + PATH_TOPIC;
+        public static final String CONTENT_ITEM_TYPE =
+                "vnd.android.cursor.item/" + CONTENT_AUTHORITY + "/" + PATH_TOPIC;
+        public static final String TABLE_NAME = "topic";
+        public static final String COLUMN_COURSE_ID = "course_id";
+        public static final String COLUMN_TOPIC = "topic";
+        public static final String COLUMN_SUMMARY = "summary";
+
+        public static Uri buildTopicUri(long id) {
+            return ContentUris.withAppendedId(CONTENT_URI, id);
+        }
+
+        public static String getCourseFromUri(Uri uri) {
+            return uri.getPathSegments().get(1);
+        }
+    }
+
+    public static final class SubTopicEntry implements BaseColumns {
+        public static final Uri CONTENT_URI =
+                BASE_CONTENT_URI.buildUpon().appendPath(PATH_SUBTOPIC).build();
+
+        public static final String CONTENT_TYPE =
+                "vnd.android.cursor.dir/" + CONTENT_AUTHORITY + "/" + PATH_SUBTOPIC;
+        public static final String CONTENT_ITEM_TYPE =
+                "vnd.android.cursor.item/" + CONTENT_AUTHORITY + "/" + PATH_SUBTOPIC;
+        public static final String TABLE_NAME = "subtopic";
+        public static final String COLUMN_TOPIC_ID = "topic_id";
+        public static final String COLUMN_SUBTOPIC = "subtopic";
+        public static final String COLUMN_SUMMARY = "summary";
+
+        public static Uri buildSubTopicUri(long id) {
+            return ContentUris.withAppendedId(CONTENT_URI, id);
+        }
+
+        public static String getTopicFromUri(Uri uri) {
+            return uri.getPathSegments().get(1);
+        }
+
+    }
+
+    public static final class CourseDiscussionEntry implements BaseColumns {
+        public static final Uri CONTENT_URI =
+                BASE_CONTENT_URI.buildUpon().appendPath(PATH_COURSE_DISCUSSION).build();
+
+        public static final String CONTENT_TYPE =
+                "vnd.android.cursor.dir/" + CONTENT_AUTHORITY + "/" + PATH_COURSE_DISCUSSION;
+        public static final String CONTENT_ITEM_TYPE =
+                "vnd.android.cursor.item/" + CONTENT_AUTHORITY + "/" + PATH_COURSE_DISCUSSION;
+        public static final String TABLE_NAME = "discussion";
+        public static final String COLUMN_COMMENT_COUNT = "comment_count";
+        public static final String COLUMN_LIKES = "likes";
+        public static final String COLUMN_LIKED = "liked";
+        public static final String COLUMN_SENDER_ID = "sender_id";
+        public static final String COLUMN_SENDER_NAME = "sender_name";
+        public static final String COLUMN_MESSAGE = "message";
+        public static final String COLUMN_TIME = "time";
+        public static final String COLUMN_FILE_OFFLINE = "file_offline";
+        public static final String COLUMN_FILE_PATH = "file_path";
+        public static final String COLUMN_FILE_TYPE = "file_type";
+        public static final String COLUMN_READ = "read";
+        public static final String COLUMN_COURSE_ID = "course_id";
+
+        public static Uri buildCourseDiscussionUri(long id) {
+            return ContentUris.withAppendedId(CONTENT_URI, id);
+        }
+
+        public static String getCourseFromUri(Uri uri) {
+            return uri.getPathSegments().get(1);
+        }
+    }
+
+    public static final class DiscussionCommentEntry implements BaseColumns {
+        public static final Uri CONTENT_URI =
+                BASE_CONTENT_URI.buildUpon().appendPath(PATH_DISCUSSION_COMMENT).build();
+
+        public static final String CONTENT_TYPE =
+                "vnd.android.cursor.dir/" + CONTENT_AUTHORITY + "/" + PATH_DISCUSSION_COMMENT;
+        public static final String CONTENT_ITEM_TYPE =
+                "vnd.android.cursor.item/" + CONTENT_AUTHORITY + "/" + PATH_DISCUSSION_COMMENT;
+        public static final String TABLE_NAME = "discussioncomment";
+        public static final String COLUMN_MESSAGE = "message";
+        public static final String COLUMN_TIME = "time";
+        public static final String COLUMN_SENDER_ID = "sender_id";
+        public static final String COLUMN_SENDER_NAME = "sender_name";
+        public static final String COLUMN_READ = "read";
+        public static final String COLUMN_DISCUSSION_ID = "discussion_id";
+
+        public static Uri buildDiscussionCommentUri(long id) {
+            return ContentUris.withAppendedId(CONTENT_URI, id);
+        }
+
+        public static String getDiscussionFromUri(Uri uri) {
+            return uri.getPathSegments().get(1);
+        }
+
+    }
+
+    public static final class StudyMaterialEntry implements BaseColumns {
+        public static final Uri CONTENT_URI =
+                BASE_CONTENT_URI.buildUpon().appendPath(PATH_STUDY_MATERIAL).build();
+
+        public static final String CONTENT_TYPE =
+                "vnd.android.cursor.dir/" + CONTENT_AUTHORITY + "/" + PATH_STUDY_MATERIAL;
+        public static final String CONTENT_ITEM_TYPE =
+                "vnd.android.cursor.item/" + CONTENT_AUTHORITY + "/" + PATH_STUDY_MATERIAL;
+        public static final String TABLE_NAME = "study_material";
+        public static final String COLUMN_COURSE_ID = "course_id";
+        public static final String COLUMN_TOPIC_ID = "topic_id";
+        public static final String COLUMN_MATERIAL_TYPE_ID = "message_type_id";
+        public static final String COLUMN_MATERIAL_TYPE = "message_type";
+        public static final String COLUMN_NAME = "name";
+        public static final String COLUMN_FILE_PATH = "file_path";
+        public static final String COLUMN_FILE_OFFLINE = "file_offline";
+
+        public static Uri buildStudyMaterialUri(long id) {
+            return ContentUris.withAppendedId(CONTENT_URI, id);
+        }
+
+        public static String getCourseFromUri(Uri uri) {
+            return uri.getPathSegments().get(1);
+        }
+
+        public static String getTopicFromUri(Uri uri) {
+            return uri.getPathSegments().get(1);
+        }
+
+
+    }
+
 }

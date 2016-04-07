@@ -1,5 +1,6 @@
 package com.techhaven.schooltweets.activity;
 
+import android.content.ContentValues;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -11,6 +12,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -23,6 +25,8 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.techhaven.schooltweets.R;
+import com.techhaven.schooltweets.dataaccesslayer.contracts.DataContract;
+import com.techhaven.schooltweets.dataaccesslayer.provider.DataProvider;
 import com.techhaven.schooltweets.fragment.ForumFragment;
 import com.techhaven.schooltweets.networks.VolleySingleton;
 
@@ -55,7 +59,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         txtNavLogin = (TextView) navigationView.findViewById(R.id.nav_header_login);
         txtNavName = (TextView) navigationView.findViewById(R.id.nav_header_name);
         setUpNavHeader();
-
+        testContentProvider();
 
         container = (LinearLayout) findViewById(R.id.layoutContainer);
         fragment = ForumFragment.newInstance("Forum", "");
@@ -75,6 +79,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             }
         });
         //requestQueue.add(request);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+
+        return super.onCreateOptionsMenu(menu);
     }
 
     private void setUpNavHeader() {
@@ -123,6 +133,22 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             });
             thread.start();
         }
+    }
+
+    private void testContentProvider() {
+        ContentValues values = new ContentValues();
+        values.put(DataContract.NewsEntry.COLUMN_AUTHOR_NAME, "Yomi");
+        values.put(DataContract.NewsEntry.COLUMN_CONTENT, "Story story");
+        values.put(DataContract.NewsEntry.COLUMN_TITLE, "New Story");
+        values.put(DataContract.NewsEntry.COLUMN_DATE_POSTED, "20160222");
+        DataProvider dataProvider = new DataProvider();
+//        Uri uri=getContentResolver().insert(DataContract.NewsEntry.CONTENT_URI, values);
+//        Toast.makeText(MainActivity.this,uri.toString(),Toast.LENGTH_SHORT).show();
+//        Cursor cursor=getContentResolver().query(DataContract.NewsEntry.CONTENT_URI, null, null, null, null);
+//        Toast.makeText(MainActivity.this,cursor.getCount()+"",Toast.LENGTH_SHORT).show();
+//        cursor.moveToFirst();
+//        // uri.getQuery()
+//        cursor.close();
     }
 
     @Override

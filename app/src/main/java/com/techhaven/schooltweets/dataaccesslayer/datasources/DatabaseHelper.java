@@ -13,6 +13,15 @@ import com.techhaven.schooltweets.dataaccesslayer.contracts.DataContract.NewsFor
 import com.techhaven.schooltweets.dataaccesslayer.contracts.DataContract.TagEntry;
 import com.techhaven.schooltweets.dataaccesslayer.contracts.DataContract.UserProfileEntry;
 
+import static com.techhaven.schooltweets.dataaccesslayer.contracts.DataContract.CourseDiscussionEntry;
+import static com.techhaven.schooltweets.dataaccesslayer.contracts.DataContract.CourseEntry;
+import static com.techhaven.schooltweets.dataaccesslayer.contracts.DataContract.DiscussionCommentEntry;
+import static com.techhaven.schooltweets.dataaccesslayer.contracts.DataContract.StudyGroupDiscussionEntry;
+import static com.techhaven.schooltweets.dataaccesslayer.contracts.DataContract.StudyGroupEntry;
+import static com.techhaven.schooltweets.dataaccesslayer.contracts.DataContract.StudyMaterialEntry;
+import static com.techhaven.schooltweets.dataaccesslayer.contracts.DataContract.SubTopicEntry;
+import static com.techhaven.schooltweets.dataaccesslayer.contracts.DataContract.TopicEntry;
+
 /**
  * Created by Oluwayomi on 2/9/2016.
  */
@@ -43,7 +52,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 NewsEntry.COLUMN_DATE_POSTED + " TEXT NOT NULL, " +
                 NewsEntry.COLUMN_IMAGE_LINK + " TEXT, " +
                 NewsEntry.COLUMN_DOWN_VOTE_COUNT + " INTEGER DEFAULT '0', " +
-                NewsEntry.COLUMN_UP_VOTE_COUNT + "INTEGER DEFAULT '0', " +
+                NewsEntry.COLUMN_UP_VOTE_COUNT + " INTEGER DEFAULT '0', " +
                 " UNIQUE (" + NewsEntry.COLUMN_TITLE + ", " +
                 NewsEntry.COLUMN_AUTHOR_NAME + ") ON CONFLICT REPLACE);";
 
@@ -77,7 +86,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 NewsForumTagEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 NewsForumTagEntry.COLUMN_NEWS_KEY + " INTEGER, " +
                 NewsForumTagEntry.COLUMN_FORUM_POST_KEY + " INTEGER, " +
-                NewsForumTagEntry.COLUMN_TAG_KEY + "INTEGER NOT NULL, " +
+                NewsForumTagEntry.COLUMN_TAG_KEY + " INTEGER NOT NULL, " +
                 // Set up the news column as a foreign key to news table.
                 " FOREIGN KEY (" + NewsForumTagEntry.COLUMN_NEWS_KEY + ") REFERENCES " +
                 NewsEntry.TABLE_NAME + " (" + NewsEntry._ID + "), " +
@@ -104,6 +113,105 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 UserProfileEntry.COLUMN_LAST_NAME + " TEXT NOT NULL, " +
                 UserProfileEntry.COLUMN_PASSWORD + " TEXT NOT NULL, " +
                 UserProfileEntry.COLUMN_USER_NAME + " TEXT UNIQUE NOT NULL);";
+
+        final String SQL_CREATE_STUDY_GROUP_TABLE = "CREATE TABLE " + StudyGroupEntry.TABLE_NAME + " (" +
+                StudyGroupEntry._ID + " INTEGER PRIMARY KEY, " +
+                StudyGroupEntry.COLUMN_TITLE + " TEXT NOT NULL, " +
+                StudyGroupEntry.COLUMN_IMAGE_PATH + " TEXT, " +
+                StudyGroupEntry.COLUMN_JOINED + " INTEGER DEFAULT '0');";
+
+        final String SQL_CREATE_STUDY_GROUP_DISCUSSION_TABLE = "CREATE TABLE " + StudyGroupDiscussionEntry.TABLE_NAME + " (" +
+                StudyGroupDiscussionEntry._ID + " INTEGER PRIMARY KEY, " +
+                StudyGroupDiscussionEntry.COLUMN_FILE_PATH + " TEXT, " +
+                StudyGroupDiscussionEntry.COLUMN_FILE_OFFLINE + " INTEGER DEFAULT '0', " +
+                StudyGroupDiscussionEntry.COLUMN_FILE_TYPE + " TEXT, " +
+                StudyGroupDiscussionEntry.COLUMN_LIKED + " INTEGER DEFAULT '0', " +
+                StudyGroupDiscussionEntry.COLUMN_LIKES + " INTEGER DEFAULT '0', " +
+                StudyGroupDiscussionEntry.COLUMN_MESSAGE + " TEXT NOT NULL, " +
+                StudyGroupDiscussionEntry.COLUMN_READ + " INTEGER DEFAULT '0'," +
+                StudyGroupDiscussionEntry.COLUMN_SENDER_ID + " INTEGER NOT NULL," +
+                StudyGroupDiscussionEntry.COLUMN_SENDER_NAME + " TEXT NOT NULL," +
+                StudyGroupDiscussionEntry.COLUMN_STUDY_GROUP_ID + " INTEGER NOT NULL," +
+                StudyGroupDiscussionEntry.COLUMN_TIME + " TEXT" +
+                " FOREIGN KEY (" + StudyGroupDiscussionEntry.COLUMN_STUDY_GROUP_ID + ") REFERENCES " +
+                StudyGroupEntry.TABLE_NAME + " (" + StudyGroupEntry._ID + ")" +
+                " UNIQUE (" + StudyGroupDiscussionEntry._ID + ", " +
+                StudyGroupDiscussionEntry.COLUMN_SENDER_ID + ") ON CONFLICT REPLACE);";
+
+        final String SQL_CREATE_COURSE_TABLE = "CREATE TABLE " + CourseEntry.TABLE_NAME + " (" +
+                CourseEntry._ID + " INTEGER PRIMARY KEY, " +
+                CourseEntry.COLUMN_CODE + " TEXT, " +
+                CourseEntry.COLUMN_DEPARTMENT_ID + " INTEGER," +
+                CourseEntry.COLUMN_DEPARTMENT_NAME + " TEXT," +
+                CourseEntry.COLUMN_END_DATE + " TEXT," +
+                CourseEntry.COLUMN_INSTITUTION_ID + " INTEGER," +
+                CourseEntry.COLUMN_INSTITUTION_NAME + " TEXT," +
+                CourseEntry.COLUMN_LEVEL + " TEXT," +
+                CourseEntry.COLUMN_LEVEL_ID + " INTEGER," +
+                CourseEntry.COLUMN_SEMESTER_ID + " INTEGER," +
+                CourseEntry.COLUMN_SEMESTER_NAME + " TEXT," +
+                CourseEntry.COLUMN_SESSION_ID + " INTEGER," +
+                CourseEntry.COLUMN_SESSION_NAME + " TEXT," +
+                CourseEntry.COLUMN_START_DATE + " TEXT," +
+                CourseEntry.COLUMN_SUMMARY + " TEXT," +
+                CourseEntry.COLUMN_IMAGE + " TEXT," +
+                CourseEntry.COLUMN_TITLE + " TEXT NOT NULL);";
+
+        final String SQL_CREATE_TOPIC_TABLE = "CREATE TABLE " + TopicEntry.TABLE_NAME + " (" +
+                TopicEntry._ID + " INTEGER PRIMARY KEY, " +
+                TopicEntry.COLUMN_COURSE_ID + " INTEGER NOT NULL," +
+                TopicEntry.COLUMN_SUMMARY + " TEXT," +
+                TopicEntry.COLUMN_TOPIC + " TEXT NOT NULL," +
+                " FOREIGN KEY (" + TopicEntry.COLUMN_COURSE_ID + ") REFERENCES " +
+                CourseEntry.TABLE_NAME + " (" + CourseEntry._ID + "));";
+
+        final String SQL_CREATE_SUBTOPIC_TABLE = "CREATE TABLE " + SubTopicEntry.TABLE_NAME + " (" +
+                SubTopicEntry._ID + " INTEGER PRIMARY KEY, " +
+                SubTopicEntry.COLUMN_SUBTOPIC + " TEXT NOT NULL," +
+                SubTopicEntry.COLUMN_TOPIC_ID + " INTEGER NOT NULL," +
+                SubTopicEntry.COLUMN_SUMMARY + " TEXT," +
+                " FOREIGN KEY (" + SubTopicEntry.COLUMN_TOPIC_ID + ") REFERENCES " +
+                TopicEntry.TABLE_NAME + " (" + TopicEntry._ID + "));";
+        final String SQL_CREATE_COURSE_DISCUSSION_TABLE = "CREATE TABLE " + CourseDiscussionEntry.TABLE_NAME + " (" +
+                CourseDiscussionEntry._ID + " INTEGER PRIMARY KEY, " +
+                CourseDiscussionEntry.COLUMN_MESSAGE + " TEXT NOT NULL," +
+                CourseDiscussionEntry.COLUMN_COURSE_ID + " INTEGER NOT NULL," +
+                CourseDiscussionEntry.COLUMN_FILE_PATH + " TEXT," +
+                CourseDiscussionEntry.COLUMN_FILE_TYPE + " TEXT," +
+                CourseDiscussionEntry.COLUMN_FILE_OFFLINE + " INTEGER DEFAULT '0'," +
+                CourseDiscussionEntry.COLUMN_COMMENT_COUNT + " INTEGER DEFAULT '0'," +
+                CourseDiscussionEntry.COLUMN_SENDER_ID + " INTEGER," +
+                CourseDiscussionEntry.COLUMN_SENDER_NAME + " TEXT," +
+                CourseDiscussionEntry.COLUMN_LIKED + " INTEGER DEFAULT '0'," +
+                CourseDiscussionEntry.COLUMN_LIKES + " INTEGER DEFAULT '0'," +
+                CourseDiscussionEntry.COLUMN_TIME + " TEXT," +
+                CourseDiscussionEntry.COLUMN_READ + " INTEGER DEFAULT '0'," +
+                " FOREIGN KEY (" + CourseDiscussionEntry.COLUMN_COURSE_ID + ") REFERENCES " +
+                CourseEntry.TABLE_NAME + " (" + CourseEntry._ID + "));";
+        final String SQL_CREATE_DISCUSSION_COMMENT_TABLE = "CREATE TABLE " + DiscussionCommentEntry.TABLE_NAME + " (" +
+                DiscussionCommentEntry._ID + " INTEGER PRIMARY KEY, " +
+                DiscussionCommentEntry.COLUMN_MESSAGE + " TEXT NOT NULL," +
+                DiscussionCommentEntry.COLUMN_DISCUSSION_ID + " INTEGER NOT NULL," +
+                DiscussionCommentEntry.COLUMN_SENDER_ID + " INTEGER," +
+                DiscussionCommentEntry.COLUMN_SENDER_NAME + " TEXT," +
+                DiscussionCommentEntry.COLUMN_TIME + " TEXT," +
+                DiscussionCommentEntry.COLUMN_READ + " INTEGER DEFAULT '0'," +
+                " FOREIGN KEY (" + DiscussionCommentEntry.COLUMN_DISCUSSION_ID + ") REFERENCES " +
+                CourseDiscussionEntry.TABLE_NAME + " (" + CourseDiscussionEntry._ID + "));";
+        final String SQL_CREATE_STUDY_MATERIAL_TABLE = "CREATE TABLE " + StudyMaterialEntry.TABLE_NAME + " (" +
+                StudyMaterialEntry._ID + " INTEGER PRIMARY KEY, " +
+                StudyMaterialEntry.COLUMN_NAME + " TEXT NOT NULL," +
+                StudyMaterialEntry.COLUMN_COURSE_ID + " INTEGER NOT NULL," +
+                StudyMaterialEntry.COLUMN_TOPIC_ID + " INTEGER," +
+                StudyMaterialEntry.COLUMN_FILE_OFFLINE + " INTEGER," +
+                StudyMaterialEntry.COLUMN_FILE_PATH + " TEXT," +
+                StudyMaterialEntry.COLUMN_MATERIAL_TYPE_ID + " TEXT," +
+                StudyMaterialEntry.COLUMN_MATERIAL_TYPE + " INTEGER DEFAULT '0'," +
+                " FOREIGN KEY (" + StudyMaterialEntry.COLUMN_COURSE_ID + ") REFERENCES " +
+                CourseEntry.TABLE_NAME + " (" + CourseEntry._ID + ")," +
+                " FOREIGN KEY (" + StudyMaterialEntry.COLUMN_TOPIC_ID + ") REFERENCES " +
+                TopicEntry.TABLE_NAME + " (" + TopicEntry._ID + "));";
+
         db.execSQL(SQL_CREATE_CONTENT_REC_TABLE);
         db.execSQL(SQL_CREATE_FORUM_POST_TABLE);
         db.execSQL(SQL_CREATE_FORUM_TABLE);
@@ -111,7 +219,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL(SQL_CREATE_NEWS_TABLE);
         db.execSQL(SQL_CREATE_TAG_TABLE);
         db.execSQL(SQL_CREATE_USER_TABLE);
-
+        db.execSQL(SQL_CREATE_STUDY_GROUP_TABLE);
+        db.execSQL(SQL_CREATE_STUDY_GROUP_DISCUSSION_TABLE);
+        db.execSQL(SQL_CREATE_COURSE_TABLE);
+        db.execSQL(SQL_CREATE_TOPIC_TABLE);
+        db.execSQL(SQL_CREATE_SUBTOPIC_TABLE);
+        db.execSQL(SQL_CREATE_COURSE_DISCUSSION_TABLE);
+        db.execSQL(SQL_CREATE_DISCUSSION_COMMENT_TABLE);
+        db.execSQL(SQL_CREATE_STUDY_MATERIAL_TABLE);
     }
 
     @Override
@@ -123,6 +238,15 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS " + NewsEntry.TABLE_NAME);
         db.execSQL("DROP TABLE IF EXISTS " + TagEntry.TABLE_NAME);
         db.execSQL("DROP TABLE IF EXISTS " + UserProfileEntry.TABLE_NAME);
+        db.execSQL("DROP TABLE IF EXISTS " + StudyGroupEntry.TABLE_NAME);
+        db.execSQL("DROP TABLE IF EXISTS " + StudyGroupDiscussionEntry.TABLE_NAME);
+        db.execSQL("DROP TABLE IF EXISTS " + CourseEntry.TABLE_NAME);
+        db.execSQL("DROP TABLE IF EXISTS " + TopicEntry.TABLE_NAME);
+        db.execSQL("DROP TABLE IF EXISTS " + SubTopicEntry.TABLE_NAME);
+        db.execSQL("DROP TABLE IF EXISTS " + DiscussionCommentEntry.TABLE_NAME);
+        db.execSQL("DROP TABLE IF EXISTS " + CourseDiscussionEntry.TABLE_NAME);
+        db.execSQL("DROP TABLE IF EXISTS " + StudyMaterialEntry.TABLE_NAME);
+
         onCreate(db);
     }
 }
